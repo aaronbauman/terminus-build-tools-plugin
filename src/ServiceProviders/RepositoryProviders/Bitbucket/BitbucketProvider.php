@@ -240,9 +240,10 @@ class BitbucketProvider implements GitProvider, LoggerAwareInterface, Credential
         if (!isset($this->bitbucketClient))
             $this->bitbucketClient = new Client([
                 'base_uri' => 'https://api.bitbucket.org/2.0/',
-                'auth' => [ $this->getBitBucketUser(), $this->getBitBucketPassword() ],
+                // 'auth' => [ $this->getBitBucketUser(), $this->getBitBucketPassword() ],
                 'headers' => [
-                    'User-Agent' => 'pantheon/terminus-build-tools-plugin'
+                  'Authorization' => 'Bearer ' . $this->token(),
+                  'User-Agent' => 'pantheon/terminus-build-tools-plugin'
                 ]
             ]);
         return $this->bitbucketClient;
