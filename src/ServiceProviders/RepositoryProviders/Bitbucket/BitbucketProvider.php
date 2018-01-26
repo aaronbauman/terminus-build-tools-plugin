@@ -256,7 +256,7 @@ class BitbucketProvider implements GitProvider, LoggerAwareInterface, Credential
             $guzzleParams['json'] = $data;
         }
 
-        $this->logger->notice('Call Bitbucket API: {method} {uri}', ['method' => $method, 'uri' => $uri]);
+        $this->logger->notice('AB: Call Bitbucket API: {method} {uri}', ['method' => $method, 'uri' => $uri]);
         
         $res = $this->bitbucketAPIClient()->request($method, $uri, $guzzleParams);
         $resultData = json_decode($res->getBody(), true);
@@ -275,7 +275,7 @@ class BitbucketProvider implements GitProvider, LoggerAwareInterface, Credential
         $message = isset($resultData['message']) ? "{$resultData['message']}." : '';
 
         if (!empty($message) || !empty($errors)) {
-            throw new TerminusException('{service} error: {message} {errors}', ['service' => $service, 'message' => $message, 'errors' => implode("\n", $errors)]);
+            throw new TerminusException('AB: {service} error: {message} {errors}', ['service' => $service, 'message' => $message, 'errors' => implode("\n", $errors)]);
         }
 
         return $resultData;
